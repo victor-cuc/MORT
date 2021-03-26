@@ -9,41 +9,30 @@ import SwiftUI
 
 struct ContentView: View {
   
-  init() {
-    UITableViewHeaderFooterView.appearance().tintColor = UIColor.clear
-  }
   var body: some View {
     NavigationView {
       List {
-        HStack {
-          Text("Popular")
-            .font(.title2)
-            .bold()
-            .padding()
-          Spacer()
-        }
+        Text("Popular")
+          .font(.title2)
+          .bold()
+          .padding(.vertical)
         ScrollView (.horizontal, showsIndicators: false) {
-          HStack {
-            Text("route")
-            Text("route")
-            Text("route")
-            Text("route")
-            Text("route")
-            Text("route")
-            Text("route")
-            Text("route")
-            Text("route")
-            Text("route")
+          HStack (spacing: 20) {
+            ForEach(1..<10) { _ in
+              RouteButton(width: 170, height: 130)
+            }
           }
-        }.frame(height: 100)
-        HStack {
-          Text("Community")
-            .font(.title2)
-            .bold()
-            .padding()
-          Spacer()
         }
-        ForEach(1..<20) { _ in Text("Pulle")}
+        Text("Community")
+          .font(.title2)
+          .bold()
+          .padding(.vertical)
+        
+        ForEach(1..<20) { _ in
+          RouteButton(height: 120)
+            .padding(.vertical)
+          
+        }
       }
       .navigationBarTitle("Routes")
       .toolbar {
