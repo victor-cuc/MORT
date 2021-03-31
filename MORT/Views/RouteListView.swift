@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct RouteListView: View {
+  @ObservedObject var routeListViewModel: RouteListViewModel
   
   var body: some View {
+    
     NavigationView {
       List {
         Text("Popular")
@@ -28,17 +30,17 @@ struct ContentView: View {
           .bold()
           .padding(.vertical)
         
-        ForEach(1..<20) { _ in
+        ForEach(routeListViewModel.routes) { route in
           RouteButton(height: 120)
-            .padding(.vertical)
-          
+          Text(route.title)
         }
       }
       .navigationBarTitle("Routes")
       .toolbar {
         ToolbarItem(placement: .navigationBarLeading) {
           Button(action:{
-            
+            let mockRoute = Route(title: "Pulle Route", locations: ["Infinity", "Seven"])
+            routeListViewModel.add(mockRoute)
           }, label: {
             Image(systemName: "plus")
           })
@@ -48,9 +50,9 @@ struct ContentView: View {
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct RouteListView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    RouteListView(routeListViewModel: RouteListViewModel())
       .previewedInAllColorSchemes
   }
 }
